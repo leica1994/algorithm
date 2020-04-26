@@ -107,8 +107,48 @@ public class LinkedListAlgorithm<T> {
      * @return the head node after execution
      */
     public static <T> Node<T> deleteLastSubscript(Node<T> head, int k) {
+        if (head == null) {
+            return null;
+        }
+        if (k < 1) {
+            return head;
+        }
+        Node<T> fast = head;
+        for (int i = 0; i < k; i++) {
+            if (fast == null) {
+                return head;
+            }
+            fast = fast.next;
+        }
+        if (fast == null) {
+            return head.next;
+        }
+        Node<T> slow = head;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
 
-        return null;
+    /**
+     * find the middle node of the linked list
+     *
+     * @param head the head node
+     * @param <T>  node generics
+     * @return the middle node
+     */
+    public static <T> Node<T> findMiddleNode(Node<T> head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node<T> fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 
     /**
@@ -116,7 +156,7 @@ public class LinkedListAlgorithm<T> {
      *
      * @param head the head node
      */
-    public void print(Node<T> head) {
+    public static <T> void print(Node<T> head) {
         Node<T> node = head;
         StringBuilder sb = new StringBuilder();
         sb.append("[");
