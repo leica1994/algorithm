@@ -180,7 +180,7 @@ public class LinkedListAlgorithm<T> {
         /**
          * the node data
          */
-        private T data;
+        private final T data;
         /**
          * the next node
          */
