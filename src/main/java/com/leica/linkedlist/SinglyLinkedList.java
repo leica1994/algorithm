@@ -148,9 +148,158 @@ public class SinglyLinkedList {
         while (q != null && q.next != node) {
             q = q.next;
         }
+        if (q == null) {
+            return;
+        }
         p.next = q.next;
         q.next = p;
     }
+
+    /**
+     * delete the specified node
+     *
+     * @param node the specified node
+     */
+    public void deleteByNode(Node node) {
+        if (node == null || head == null) {
+            return;
+        }
+        if (node == head) {
+            head = head.next;
+            return;
+        }
+        Node q = head;
+        while (q != null && q.next != node) {
+            q = q.next;
+        }
+        if (q == null) {
+            return;
+        }
+        q.next = node.next;
+    }
+
+    /**
+     * delete the node by the specified value
+     *
+     * @param value the specified value
+     */
+    public void deleteByValue(int value) {
+        if (head == null) {
+            return;
+        }
+        Node p = head;
+        Node q = null;
+        while (p != null && p.data != value) {
+            q = p;
+            p = p.next;
+        }
+        if (p == null) {
+            return;
+        }
+        if (q == null) {
+            head = head.next;
+        } else {
+            q.next = q.next.next;
+        }
+    }
+
+    /**
+     * determine whether two nodes {@code node1} and {@code node2} are the same
+     *
+     * @param node1 the node1
+     * @param node2 the node2
+     * @return whether
+     */
+    public boolean equals(Node node1, Node node2) {
+        Node p = node1;
+        Node r = node2;
+        while (p != null && r != null) {
+            if (p.data != r.data) {
+                return false;
+            }
+            p = p.next;
+            r = r.next;
+        }
+        return p == null && r == null;
+    }
+
+    /**
+     * determine whether the list is palindrome
+     *
+     * @return whether the list is palindrome
+     */
+    public boolean palindrome() {
+        if (head == null) {
+            return false;
+        } else {
+            //find the middle node
+            Node p = head;
+            Node q = head;
+            if (p.next == null) {
+                return true;
+            }
+            while (q.next != null && q.next.next != null) {
+                p = p.next;
+                q = q.next.next;
+
+            }
+
+            Node leftLink;
+            Node rightLink;
+            if (q.next == null) {
+                rightLink = p.next;
+                leftLink = inverseLinkList(p).next;
+
+            } else {
+                rightLink = p.next;
+                leftLink = inverseLinkList(p);
+            }
+            return equals(leftLink, rightLink);
+
+        }
+    }
+
+    /**
+     * inversion the linked list
+     *
+     * @param node the head node
+     * @return the head node of invert
+     */
+    public Node inverseLinkListWithHead(Node node) {
+        Node head = new Node(9999, null);
+        head.next = node;
+        Node cur = node.next;
+        node.next = null;
+        Node next;
+
+        while (cur != null) {
+            next = cur.next;
+            cur.next = head.next;
+            head.next = cur;
+            cur = next;
+        }
+        return head;
+    }
+
+    /**
+     * inversion the linked list
+     *
+     * @param node the head node
+     * @return the head node of invert
+     */
+    public Node inverseLinkList(Node node) {
+        Node pre = null;
+        Node r = head;
+        while (r != node) {
+            Node next = r.next;
+            r.next = pre;
+            pre = r;
+            r = next;
+        }
+        r.next = pre;
+        return r;
+    }
+
 
     /**
      * singly linked list basic node
@@ -181,16 +330,4 @@ public class SinglyLinkedList {
         }
     }
 
-
-    public static void main(String[] args) {
-        Node node5 = new Node(5, null);
-        Node node4 = new Node(4, node5);
-        Node node3 = new Node(3, node4);
-        Node node2 = new Node(2, node3);
-        Node node1 = new Node(1, node2);
-        SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
-        singlyLinkedList.head = node1;
-        Node node = singlyLinkedList.findByIndex(1);
-        System.out.println(node);
-    }
 }
