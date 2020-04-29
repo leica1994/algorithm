@@ -26,7 +26,7 @@ public class LastRecentlyUsedBaseLinkedList<T> {
     /**
      * the linked list capacity
      */
-    private Integer capacity;
+    private final Integer capacity;
 
     public LastRecentlyUsedBaseLinkedList(Integer capacity) {
         head = new Node<>();
@@ -39,15 +39,58 @@ public class LastRecentlyUsedBaseLinkedList<T> {
     }
 
     /**
-     * add the data t to the linked list
+     * add the data {@code t} to the linked list
      *
      * @param t the data t
      */
     public void add(T t) {
         Node<T> node = findPreNode(t);
+        if (node == null) {
+            if (length.equals(capacity)) {
+                deleteElementAtEnd();
+            }
+        } else {
+            deleteNextNode(node);
+        }
+        insertElementAtBegin(t);
+    }
 
 
-        //to do..
+    /**
+     * delete the next node of the specified node
+     *
+     * @param node the specified node
+     */
+    private void deleteNextNode(Node<T> node) {
+        Node<T> next = node.getNext().getNext();
+        node.setNext(next);
+        length--;
+    }
+
+    /**
+     * insert the element t to the list
+     *
+     * @param t the element to be insert
+     */
+    private void insertElementAtBegin(T t) {
+        head = new Node<>(t, head);
+        length++;
+    }
+
+    /**
+     * delete the tail node
+     */
+    private void deleteElementAtEnd() {
+        Node<T> node = head;
+        if (node.getNext() == null) {
+            return;
+        }
+        //penultimate node
+        while (node.getNext().getNext() != null) {
+            node = node.getNext();
+        }
+        node.setNext(null);
+        length--;
     }
 
     /**
