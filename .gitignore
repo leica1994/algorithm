@@ -25,3 +25,9 @@
 hs_err_pid*
 
 .idea/
+src/main/java/com/leica/queue/
+src/main/java/com/leica/stack/
+src/main/resources/
+src/test/
+target/classes/META-INF/
+target/generated-sources/
