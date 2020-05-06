@@ -44,20 +44,29 @@ public class QuickSort {
         int pivot = arr[end];
         int k = start;
         for (int i = start; i < end; i++) {
-            if (arr[i] < pivot) {
-                if (i == k) {
-                    k++;
-                } else {
-                    int temp = arr[k];
-                    arr[k++] = arr[i];
-                    arr[i] = temp;
-                }
+            if (arr[i] <= pivot) {
+                swap(arr, k++, i);
             }
         }
-        int temp = arr[k];
-        arr[k] = arr[end];
-        arr[end] = temp;
+        swap(arr, k, end);
         return k;
+    }
+
+    /**
+     * interactive i and j position
+     *
+     * @param arr the array
+     * @param i   the element i
+     * @param j   the element j
+     */
+    private void swap(int[] arr, int i, int j) {
+        if (i == j) {
+            return;
+        }
+
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 
     /**
