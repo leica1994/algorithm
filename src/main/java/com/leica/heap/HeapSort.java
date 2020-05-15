@@ -20,8 +20,8 @@ public class HeapSort {
         buildHeap(arr);
         int k = arr.length - 1;
         while (k > 0) {
-            swap(arr, 0, k);
-            heapIfy(arr, --k, 0);
+            swap(arr, 0, k--);
+            heapIfy(arr, k, 0);
         }
     }
 
@@ -30,7 +30,7 @@ public class HeapSort {
      *
      * @param arr the array
      * @param n   the index of the last element of the array
-     * @param i   the element to be heapIfy
+     * @param i   the index of the element to be heapIfy
      */
     private void heapIfy(int[] arr, int n, int i) {
         while (true) {
